@@ -22,7 +22,9 @@ const ProductComponent = () => {
     )
     return (
             <div className="ui link four doubling cards">
-                {renderList}
+                {products.length === 0 
+                ? <button className="ui basic loading button">Loading</button>
+                : renderList}
             </div>
     )
 }
