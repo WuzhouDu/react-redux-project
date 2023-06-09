@@ -26,7 +26,7 @@ const ProductDetail = () => {
             dispatch(removeSelectedProduct());
         }
     }
-    ,[productId]);
+    , []);
     console.log("Product: ", product);
     
     return (
@@ -39,12 +39,12 @@ const ProductDetail = () => {
                     <div className="ui vertical divider"></div>
                     <div className="middle aligned row">
                         <div className="column">
-                            <img src={image} className='ui fluid image' />
+                            <img src={image} alt='' className='ui fluid image' />
                         </div>
                         <div className="column">
                             <h1>{title}</h1>
                             <h2>
-                                <a className="ui teal tag label">${price}</a>
+                                <div className="ui teal tag label">${price}</div>
                             </h2>
                             <h3 className="ui brown block header">
                                 <p>{category}</p>
