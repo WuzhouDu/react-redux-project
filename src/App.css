@@ -36,3 +36,24 @@
     transform: rotate(360deg);
   }
 }
+
+.card {
+  height: 50vh !important;
+  margin: 10px !important;
+}
+
+.card-image {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: scale-down !important;
+}
+
+.card-image-container {
+  height: 70% !important;
+  width: 100% !important;
+}
+
+.content {
+  overflow: auto;
+
+}
