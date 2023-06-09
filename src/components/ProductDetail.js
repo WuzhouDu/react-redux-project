@@ -3,7 +3,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedProduct } from "../redux/actions/productActions";
+import { selectedProduct, removeSelectedProduct } from "../redux/actions/productActions";
 
 const ProductDetail = () => {
     const product = useSelector(state => state.product);
@@ -21,8 +21,12 @@ const ProductDetail = () => {
     };
 
     useEffect(() => {
-        if(productId && productId !== "") fetchProductDetail();
-    }, [productId]);
+        if (productId && productId !== "") fetchProductDetail();
+        return () => {
+            dispatch(removeSelectedProduct());
+        }
+    }
+    ,[productId]);
     console.log("Product: ", product);
     
     return (
