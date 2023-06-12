@@ -1,17 +1,20 @@
 import React from "react";
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { selectProduct, removeSelectedProduct } from "../redux/slice";
 
 const ProductDetail = () => {
     const product = useSelector(state => state.productSeen.selectedProduct);
-    console.log("productSeen: ", product);
+    const [error, setError] = useState(null);
     const {title, image, price, category, description} = product;
     const {productId} = useParams();
     const dispatch = useDispatch();
     const fetchProductDetail = async () => {
+        if (parseInt(productId) > 20) {
+            setError("Error: Product not found");
+        }
         const response = await axios
             .get(`https://fakestoreapi.com/products/${productId}`)
             .catch(err => {
@@ -30,6 +33,9 @@ const ProductDetail = () => {
     , []);
     
     return (
+        error 
+        ? <div className="ui red message">{error}</div> 
+        :
         <div className="ui grid container">
             {Object.keys(product).length === 0 ? (
                 <button className="ui basic loading button">Loading</button>
@@ -50,7 +56,7 @@ const ProductDetail = () => {
                                 <p>{category}</p>
                             </h3>
                             <p>{description}</p>
-                            <div className="ui animated button" tabindex="0">
+                            <div className="ui animated button" tabIndex="0">
                                 <div className="hidden content">Shop</div>
                                 <div className="visible content">
                                     <i className="shop icon"></i>
