@@ -1,16 +1,14 @@
 import {configureStore} from '@reduxjs/toolkit'
 import { combineReducers } from "redux";
-import { allProductsReducer, selectProductReducer } from './slice';
+import { allProductsReducer, selectProductReducer, cartProductsReducer, pathReducer } from './slice';
 
-// console.log("allProductsReducer: ", allProductsReducer);
-// console.log("selectProductReducer: ", selectProductReducer);
 const rootReducer = combineReducers({
     allProducts: allProductsReducer,
     productSeen: selectProductReducer,
+    cartProducts: cartProductsReducer,
+    path: pathReducer,
 });
 
-
-// const store = createStore(reducers, {}, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 const store = configureStore({
     reducer: rootReducer
 })

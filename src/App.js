@@ -4,24 +4,37 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom';
 import ProductListing from './components/ProductListing';
 import ProductDetail from './components/ProductDetail';
 import ErrorPage from './components/ErrorPage';
+import Cart from './components/Cart';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ProductListing />,
-    errorElement: <ErrorPage />
+    element: <Header />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/",
+        element: <ProductListing />,
+        errorElement: <ErrorPage />        
+      },
+
+      {
+        path: "/product/:productId",
+        element: <ProductDetail />,
+        errorElement: <ErrorPage />
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+        errorElement: <ErrorPage />
+      }
+    ]
   },
-  {
-    path: "/product/:productId",
-    element: <ProductDetail />,
-    errorElement: <ErrorPage />
-  }
 ]);
 
 function App() {
   return (
     <div className="App">
-      <Header />
       <RouterProvider router={router} />
     </div>
   );

@@ -1,12 +1,23 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setPath } from '../redux/slice';
 
 const Header = () => {
+    const dispatch = useDispatch();
+    const path = useSelector(state => state.path.path);
+    console.log("rendering header");
     return (
-        <div className='ui menu bottom-margin'>
-            <div className='ui container center'>
-                <h2>FakeShop</h2>
+            <div className='ui container'>
+                <h1 className='ui header'>Fake Shop</h1>
+                <div className='ui secondary pointing menu'>
+                    <Link key={'productList'} to='/' className={path === '/' ? 'active item' : 'item'} onClick={() => {dispatch(setPath('/'))}}>Product List</Link>
+                    <Link key={'shippingCart'} to='/cart' className={path === '/cart' ? 'active item' : 'item'} onClick={() => {dispatch(setPath('/cart'))}}>Shopping Cart</Link>
+                </div>
+                <Outlet />
             </div>
-        </div>
+       
     )
 }
 

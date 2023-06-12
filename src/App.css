@@ -69,3 +69,7 @@ div[class='hidden content'] {
 h3[class="ui brown block header"]::before{
     height: 0px !important;
 }
+
+.ui.products-list.grid {
+  margin-top: 20px;
+}

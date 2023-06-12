@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectProduct, removeSelectedProduct } from "../redux/slice";
+import { selectProduct, removeSelectedProduct, setPath, addProductToCart } from "../redux/slice";
 
 const ProductDetail = () => {
     const product = useSelector(state => state.productSeen.selectedProduct);
@@ -57,7 +57,7 @@ const ProductDetail = () => {
                             </h3>
                             <p>{description}</p>
                             <div className="ui animated button" tabIndex="0">
-                                <div className="hidden content">Shop</div>
+                                <div className="hidden content"><Link to='../cart' onClick={() => {dispatch(setPath('/cart')); dispatch(addProductToCart(product))}}>Add to Shopping Cart</Link></div>
                                 <div className="visible content">
                                     <i className="shop icon"></i>
                                 </div>
