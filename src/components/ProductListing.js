@@ -2,10 +2,10 @@ import React, {useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ProductComponent from "./ProductComponent";
 import axios from "axios";
-import { setProducts } from "../redux/actions/productActions";
+import { setProducts } from "../redux/slice";
 
 const ProductListing = () => {
-    const products = useSelector(state => state.allProducts);
+    const products = useSelector(state => state.allProducts.products);
     const dispatch = useDispatch();
 
     const fetchProducts = async () => {

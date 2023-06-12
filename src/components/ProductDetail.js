@@ -3,10 +3,11 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { selectedProduct, removeSelectedProduct } from "../redux/actions/productActions";
+import { selectProduct, removeSelectedProduct } from "../redux/slice";
 
 const ProductDetail = () => {
-    const product = useSelector(state => state.product);
+    const product = useSelector(state => state.productSeen.selectedProduct);
+    console.log("productSeen: ", product);
     const {title, image, price, category, description} = product;
     const {productId} = useParams();
     const dispatch = useDispatch();
@@ -17,7 +18,7 @@ const ProductDetail = () => {
                 console.log("Err: ", err);
             });
         console.log("response: ", response);
-        dispatch(selectedProduct(response.data));
+        dispatch(selectProduct(response.data));
     };
 
     useEffect(() => {
@@ -27,12 +28,11 @@ const ProductDetail = () => {
         }
     }
     , []);
-    console.log("Product: ", product);
     
     return (
         <div className="ui grid container">
             {Object.keys(product).length === 0 ? (
-                <button class="ui basic loading button">Loading</button>
+                <button className="ui basic loading button">Loading</button>
             ) : (
             <div className="ui placeholder segment">
                 <div className="ui two column stackable center aligned grid">
@@ -50,10 +50,10 @@ const ProductDetail = () => {
                                 <p>{category}</p>
                             </h3>
                             <p>{description}</p>
-                            <div class="ui animated button" tabindex="0">
-                                <div class="hidden content">Shop</div>
-                                <div class="visible content">
-                                    <i class="shop icon"></i>
+                            <div className="ui animated button" tabindex="0">
+                                <div className="hidden content">Shop</div>
+                                <div className="visible content">
+                                    <i className="shop icon"></i>
                                 </div>
                             </div>
                         </div>
