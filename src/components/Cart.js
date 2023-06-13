@@ -48,41 +48,45 @@ const Cart = () => {
     console.log("cartProducts: ", cartProducts);
 
     return (
-<table className="ui celled padded table">
-  <thead>
-    <tr><th className="single line">Image</th>
-    <th>Title</th>
-    <th>Rating</th>
-    <th>Price</th>
-    <th>Description</th>
-    <th>Operation</th>
-  </tr></thead>
-  <tbody>
-    {cartProducts.length === 0 
-        ? <h1 className="header">Nothing in the cart...</h1>
-        : renderCart}
-  </tbody>
-  <tfoot>
-    <tr><th colSpan="6">
-      <div className="ui right floated buttons">
-        <button className="ui positive animated fade button" onClick={() => {
-            dispatch(clearCart());
-            alert("Purchase successful!");
-          
-        }}>
-          <div className="visible content">Pruchase All</div>
-          <div className="hidden content">
-            $ {totalPrice}
-          </div>
-        </button>
-        <div className="or"></div>
-        <button className="ui negative button" onClick={() => {dispatch(clearCart())}}>
-          Clear Cart
-        </button>
+      <div className='ui container'>
+      <table className="ui celled padded unstackable table">
+        <thead>
+          <tr>
+          <th className="center aligned">Image</th>
+          <th className="center aligned">Title</th>
+          <th className="center aligned">Rating</th>
+          <th className="center aligned">Price</th>
+          <th className="center aligned">Description</th>
+          <th className="center aligned">Operation</th>
+        </tr></thead>
+        <tbody>
+          {cartProducts.length === 0 
+              ? <h1>Nothing in the cart...</h1> 
+              : renderCart}
+        </tbody>
+        <tfoot>
+          <tr><th colSpan="6">
+            <div className="ui right floated buttons">
+              <button className="ui positive animated fade button" onClick={() => {
+                  if (cartProducts.length === 0) return;
+                  dispatch(clearCart());
+                  alert("Purchase successful!");
+                
+              }}>
+                <div className="visible content">Pruchase All</div>
+                <div className="hidden content">
+                  $ {totalPrice}
+                </div>
+              </button>
+              <div className="or"></div>
+              <button className="ui negative button" onClick={() => {dispatch(clearCart())}}>
+                Clear Cart
+              </button>
+            </div>
+          </th>
+        </tr></tfoot>
+      </table>
       </div>
-    </th>
-  </tr></tfoot>
-</table>
     )
 }
 

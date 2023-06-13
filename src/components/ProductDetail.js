@@ -7,6 +7,7 @@ import { selectProduct, removeSelectedProduct, setPath, addProductToCart } from 
 
 const ProductDetail = () => {
     const product = useSelector(state => state.productSeen.selectedProduct);
+    const productList = useSelector(state => state.allProducts.products);
     const [error, setError] = useState(null);
     const {title, image, price, category, description} = product;
     const {productId} = useParams();
@@ -14,9 +15,17 @@ const ProductDetail = () => {
 
 
     useEffect(() => {
+        console.log("rendering product detail");
         const fetchProductDetail = async () => {
             if (parseInt(productId) > 20) {
                 setError("Error: Product not found");
+            }
+            if (productList.length !== 0) {
+                const product = productList.find(product => product.id === parseInt(productId));
+                if (product) {
+                    dispatch(selectProduct(product));
+                    return;
+                }
             }
             const response = await axios
                 .get(`https://fakestoreapi.com/products/${productId}`)
@@ -31,7 +40,7 @@ const ProductDetail = () => {
             dispatch(removeSelectedProduct());
         }
     }
-    , [dispatch, productId]);
+    , [dispatch, productId, productList]);
     
     return (
         error 

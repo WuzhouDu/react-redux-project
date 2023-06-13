@@ -16,6 +16,8 @@ const ProductListing = () => {
             .catch(err => {
                 console.log("Err: ", err);
             });
+        
+        console.log("response: ", response);
         dispatch(setProducts(response.data));
         };
         console.log("fetching products");
