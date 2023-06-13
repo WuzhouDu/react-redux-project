@@ -7,11 +7,17 @@ import { selectProduct, removeSelectedProduct, setPath, addProductToCart } from 
 
 const ProductDetail = () => {
     const product = useSelector(state => state.productSeen.selectedProduct);
+    const dispatch = useDispatch();
+    if (product === {}) {
+        const productSeenFromSession = JSON.parse(sessionStorage.getItem('productSeen'));
+        productSeenFromSession && dispatch(selectProduct(productSeenFromSession));
+        console.log("read from session");
+    }
     const productList = useSelector(state => state.allProducts.products);
     const [error, setError] = useState(null);
     const {title, image, price, category, description} = product;
     const {productId} = useParams();
-    const dispatch = useDispatch();
+    
 
 
     useEffect(() => {
@@ -31,9 +37,16 @@ const ProductDetail = () => {
                 .get(`https://fakestoreapi.com/products/${productId}`)
                 .catch(err => {
                     console.log("Err: ", err);
+                    return null;
                 });
             console.log("response: ", response);
-            dispatch(selectProduct(response.data));
+            
+            if (response) {
+                dispatch(selectProduct(response.data));
+            }
+            else {
+                setError('time out, try again');
+            }
         };
         if (productId && productId !== "") fetchProductDetail();
         return () => {
