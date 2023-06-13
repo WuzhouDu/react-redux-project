@@ -11,26 +11,27 @@ const ProductDetail = () => {
     const {title, image, price, category, description} = product;
     const {productId} = useParams();
     const dispatch = useDispatch();
-    const fetchProductDetail = async () => {
-        if (parseInt(productId) > 20) {
-            setError("Error: Product not found");
-        }
-        const response = await axios
-            .get(`https://fakestoreapi.com/products/${productId}`)
-            .catch(err => {
-                console.log("Err: ", err);
-            });
-        console.log("response: ", response);
-        dispatch(selectProduct(response.data));
-    };
+
 
     useEffect(() => {
+        const fetchProductDetail = async () => {
+            if (parseInt(productId) > 20) {
+                setError("Error: Product not found");
+            }
+            const response = await axios
+                .get(`https://fakestoreapi.com/products/${productId}`)
+                .catch(err => {
+                    console.log("Err: ", err);
+                });
+            console.log("response: ", response);
+            dispatch(selectProduct(response.data));
+        };
         if (productId && productId !== "") fetchProductDetail();
         return () => {
             dispatch(removeSelectedProduct());
         }
     }
-    , []);
+    , [dispatch, productId]);
     
     return (
         error 

@@ -9,6 +9,7 @@ export const allProductsSlice = createSlice({
     reducers: {
         setProducts: (state, action) => {
             state.products = action.payload;
+            sessionStorage.getItem('allProducts') === null && sessionStorage.setItem('allProducts', JSON.stringify(action.payload));
         }
     }
 })
@@ -22,10 +23,12 @@ export const selectProductSlice = createSlice({
     reducers: {
         selectProduct: (state, action) => {
             state.selectedProduct = action.payload;
+            sessionStorage.setItem('productSeen', JSON.stringify(action.payload));
         },
 
         removeSelectedProduct: (state, action) => {
             state.selectedProduct = {};
+            sessionStorage.removeItem('productSeen');
         }
     }
 })
@@ -37,15 +40,24 @@ export const cartProductsSlice = createSlice({
     },
     reducers: {
         addProductToCart: (state, action) => {
-            state.cartProducts.push(action.payload);
+            // test if payload is array
+            if (Array.isArray(action.payload)) {
+                state.cartProducts.push(...action.payload);
+            }
+            else {
+                state.cartProducts.push(action.payload);
+            }
+            sessionStorage.setItem('cartProducts', JSON.stringify(state.cartProducts));
         },
 
         removeProductFromCart: (state, action) => {
-            state.cartProducts = state.cartProducts.filter(product => product.id !== action.payload);
+            state.cartProducts = state.cartProducts.filter(product => product.id !== action.payload.id);
+            sessionStorage.setItem('cartProducts', JSON.stringify(state.cartProducts));
         },
 
         clearCart: (state, action) => {
             state.cartProducts = [];
+            sessionStorage.removeItem('cartProducts');
         }
     }
 })
@@ -58,6 +70,7 @@ export const pathSlice = createSlice({
     reducers: {
         setPath: (state, action) => {
             state.path = action.payload;
+            sessionStorage.setItem('path', action.payload);
         }
     }
 })

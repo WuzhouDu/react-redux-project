@@ -1,12 +1,17 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { setPath } from '../redux/slice';
 
 const Header = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
     const path = useSelector(state => state.path.path);
+
+    useEffect(() => {
+        dispatch(setPath(location.pathname));
+    }, [location.pathname, dispatch]);
     console.log("rendering header");
     return (
             <div className='ui container'>

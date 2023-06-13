@@ -73,3 +73,7 @@ h3[class="ui brown block header"]::before{
 .ui.products-list.grid {
   margin-top: 20px;
 }
+
+[class='visible content'] {
+  overflow: hidden;
+}
