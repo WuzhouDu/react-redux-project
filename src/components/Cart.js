@@ -22,19 +22,19 @@ const Cart = () => {
                 <p className="single line">{product.rating.rate}</p>
             </td>
             <td className="center aligned">
-                {product.price}
+                $ {product.price}
             </td>
-            <td>{product.description}</td>
+            <td><div className="description" title={product.description}>{product.description}</div></td>
             <td>
               <div className="ui vertical labeled icon buttons">       
-                <button className="ui small vertical attached button" onClick={() => {
+                <button className="ui small vertical attached positive button" onClick={() => {
                     dispatch(removeProductFromCart(product));
                     alert("Purchase successful!");
                   }}>
                   <i className="cart icon"></i>
                   Purchase</button>
                 <div className="or"></div>
-                <button className="ui small vertical attached button" onClick={() => {dispatch(removeProductFromCart(product))}}>
+                <button className="ui small vertical attached negative button" onClick={() => {dispatch(removeProductFromCart(product))}}>
                   <i className="trash icon"></i>
                   Romove</button>
               </div>
@@ -48,7 +48,7 @@ const Cart = () => {
     console.log("cartProducts: ", cartProducts);
 
     return (
-      <div className='ui container'>
+      <div className='ui container scrollable'>
       <table className="ui celled padded unstackable table">
         <thead>
           <tr>

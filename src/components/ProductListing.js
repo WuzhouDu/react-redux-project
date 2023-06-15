@@ -28,9 +28,9 @@ const ProductListing = () => {
     
 
     return (
-        <div className="ui grid container products-list">
+        <>
             <ProductComponent />
-        </div>
+        </>
     )
 }
 

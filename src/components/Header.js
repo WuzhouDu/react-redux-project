@@ -15,7 +15,7 @@ const Header = () => {
     console.log("rendering header");
     return (
             <div className='ui container'>
-                <h1 className='ui header'>Fake Shop</h1>
+                <h1 className='ui header' style={{marginTop: '10px'}}>Fake Shop</h1>
                 <div className='ui secondary pointing menu'>
                     <Link key={'productList'} to='/' className={path === '/' ? 'active item' : 'item'} onClick={() => {dispatch(setPath('/'))}}>Product List</Link>
                     <Link key={'shippingCart'} to='/cart' className={path === '/cart' ? 'active item' : 'item'} onClick={() => {dispatch(setPath('/cart'))}}>Shopping Cart</Link>
